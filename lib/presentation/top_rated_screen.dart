@@ -7,7 +7,6 @@ import 'package:test_ft/data/repository_impl/movies_repository_impl.dart';
 import 'package:test_ft/domain/enums.dart';
 import 'package:test_ft/utils/utils.dart';
 
-const imageHeight = 300.0;
 const pageSize = 20;
 
 class TopRatedScreen extends ConsumerWidget {
@@ -16,9 +15,10 @@ class TopRatedScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GridView.builder(
+      padding: const EdgeInsets.only(top: 20.0),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.73,
+        childAspectRatio: 0.61,
         mainAxisSpacing: 15,
       ),
       itemBuilder: (context, index) {
@@ -27,11 +27,7 @@ class TopRatedScreen extends ConsumerWidget {
         final AsyncValue<MoviesResponse> responseAsync = ref.watch(fetchTopRatedMoviesProvider(page));
         return responseAsync.when(
           error: (error, stack) => Text(error.toString()),
-          loading: () => const SizedBox(
-              height: imageHeight,
-              child: Center(
-                child: CircularProgressIndicator(),
-              )),
+          loading: () => const Center(child: CircularProgressIndicator()),
           data: (response) {
             if (indexInPage >= response.results.length) {
               return null;
@@ -59,23 +55,37 @@ class MovieTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageUrl = Utils.getImageUrl(movieItem.posterPath!, ImageSize.w92);
-    return SizedBox(
-      height: imageHeight,
-      child: ClipRRect(
-        clipBehavior: Clip.hardEdge,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(15.0),
+    return Column(
+      spacing: 5.0,
+      children: [
+        Expanded(
+          child: ClipRRect(
+            clipBehavior: Clip.hardEdge,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(15.0),
+            ),
+            child: Image(
+                fit: BoxFit.cover,
+                image: CachedNetworkImageProvider(imageUrl),
+                frameBuilder: (context, child, frame, sync) {
+                  if (frame == null) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  return child;
+                }),
+          ),
         ),
-        child: Image(
-            fit: BoxFit.cover,
-            image: CachedNetworkImageProvider(imageUrl),
-            frameBuilder: (context, child, frame, sync) {
-              if (frame == null) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              return child;
-            }),
-      ),
+        Text(
+          movieItem.title,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        Text(
+          'Rating: ${movieItem.voteAverage?.toInt()}',
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
+      ],
     );
   }
 }
