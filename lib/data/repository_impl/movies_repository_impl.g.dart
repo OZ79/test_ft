@@ -6,12 +6,11 @@ part of 'movies_repository_impl.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$moviesRepositoryHash() => r'c6d19d5ac73227b08900ef1f3575726caa8dc4c8';
+String _$moviesRepositoryHash() => r'efd9c68dafe552e83fe9c9126b7ad08f1853cc28';
 
 /// See also [moviesRepository].
 @ProviderFor(moviesRepository)
-final moviesRepositoryProvider =
-    AutoDisposeProvider<MoviesRepositoryImpl>.internal(
+final moviesRepositoryProvider = Provider<MoviesRepositoryImpl>.internal(
   moviesRepository,
   name: r'moviesRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -23,7 +22,7 @@ final moviesRepositoryProvider =
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef MoviesRepositoryRef = AutoDisposeProviderRef<MoviesRepositoryImpl>;
+typedef MoviesRepositoryRef = ProviderRef<MoviesRepositoryImpl>;
 String _$fetchTopRatedMoviesHash() =>
     r'4a5ed9010a224e586493cb47f1e808d902b469f0';
 
@@ -176,6 +175,141 @@ class _FetchTopRatedMoviesProviderElement
 
   @override
   int get page => (origin as FetchTopRatedMoviesProvider).page;
+}
+
+String _$fetchMovieDetailsHash() => r'0315c29b01759e54f900637609628690bb4e583f';
+
+/// See also [fetchMovieDetails].
+@ProviderFor(fetchMovieDetails)
+const fetchMovieDetailsProvider = FetchMovieDetailsFamily();
+
+/// See also [fetchMovieDetails].
+class FetchMovieDetailsFamily
+    extends Family<AsyncValue<MoviesDetailsResponse>> {
+  /// See also [fetchMovieDetails].
+  const FetchMovieDetailsFamily();
+
+  /// See also [fetchMovieDetails].
+  FetchMovieDetailsProvider call(
+    String movieId,
+  ) {
+    return FetchMovieDetailsProvider(
+      movieId,
+    );
+  }
+
+  @override
+  FetchMovieDetailsProvider getProviderOverride(
+    covariant FetchMovieDetailsProvider provider,
+  ) {
+    return call(
+      provider.movieId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchMovieDetailsProvider';
+}
+
+/// See also [fetchMovieDetails].
+class FetchMovieDetailsProvider
+    extends AutoDisposeFutureProvider<MoviesDetailsResponse> {
+  /// See also [fetchMovieDetails].
+  FetchMovieDetailsProvider(
+    String movieId,
+  ) : this._internal(
+          (ref) => fetchMovieDetails(
+            ref as FetchMovieDetailsRef,
+            movieId,
+          ),
+          from: fetchMovieDetailsProvider,
+          name: r'fetchMovieDetailsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchMovieDetailsHash,
+          dependencies: FetchMovieDetailsFamily._dependencies,
+          allTransitiveDependencies:
+              FetchMovieDetailsFamily._allTransitiveDependencies,
+          movieId: movieId,
+        );
+
+  FetchMovieDetailsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.movieId,
+  }) : super.internal();
+
+  final String movieId;
+
+  @override
+  Override overrideWith(
+    FutureOr<MoviesDetailsResponse> Function(FetchMovieDetailsRef provider)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchMovieDetailsProvider._internal(
+        (ref) => create(ref as FetchMovieDetailsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        movieId: movieId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<MoviesDetailsResponse> createElement() {
+    return _FetchMovieDetailsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchMovieDetailsProvider && other.movieId == movieId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, movieId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin FetchMovieDetailsRef
+    on AutoDisposeFutureProviderRef<MoviesDetailsResponse> {
+  /// The parameter `movieId` of this provider.
+  String get movieId;
+}
+
+class _FetchMovieDetailsProviderElement
+    extends AutoDisposeFutureProviderElement<MoviesDetailsResponse>
+    with FetchMovieDetailsRef {
+  _FetchMovieDetailsProviderElement(super.provider);
+
+  @override
+  String get movieId => (origin as FetchMovieDetailsProvider).movieId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

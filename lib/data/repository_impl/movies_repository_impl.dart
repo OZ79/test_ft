@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:test_ft/app_constants.dart';
 import 'package:test_ft/data/api/movies_api.dart';
+import 'package:test_ft/data/models/movies_details_response.dart';
 import 'package:test_ft/data/models/movies_response.dart';
 import 'package:test_ft/domain/repositories/movies_repository.dart';
 
@@ -23,9 +24,18 @@ class MoviesRepositoryImpl implements MoviesRepositoryRepository {
       cancelToken: cancelToken,
     );
   }
+
+  @override
+  Future<MoviesDetailsResponse> getMovieDetails(String movieId, CancelToken? cancelToken) async {
+    return await _api.getMovieDetails(
+      apiKey: AppConstants.apiKey,
+      movieId: movieId,
+      cancelToken: cancelToken,
+    );
+  }
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 MoviesRepositoryImpl moviesRepository(Ref ref) => MoviesRepositoryImpl(
       ref.watch(moviesApiProvider),
     );
@@ -54,4 +64,30 @@ Future<MoviesResponse> fetchTopRatedMovies(Ref ref, int page) {
   });
 
   return moviesRepo.getTopRatedMovies(page, cancelToken);
+}
+
+@riverpod
+Future<MoviesDetailsResponse> fetchMovieDetails(Ref ref, String movieId) {
+  final moviesRepo = ref.watch(moviesRepositoryProvider);
+
+  final cancelToken = CancelToken();
+  final link = ref.keepAlive();
+  Timer? timer;
+
+  ref.onDispose(() {
+    cancelToken.cancel();
+    timer?.cancel();
+  });
+
+  ref.onCancel(() {
+    timer = Timer(const Duration(seconds: AppConstants.disposeCachedDataTimeInSec), () {
+      link.close();
+    });
+  });
+
+  ref.onResume(() {
+    timer?.cancel();
+  });
+
+  return moviesRepo.getMovieDetails(movieId, cancelToken);
 }

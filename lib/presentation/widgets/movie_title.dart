@@ -44,14 +44,14 @@ class MovieTile extends StatelessWidget {
                   width: 165.0,
                   child: Text(
                     movieItem.title,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Text(
                   'Rating: ${movieItem.voteAverage?.toInt()}',
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
             ),

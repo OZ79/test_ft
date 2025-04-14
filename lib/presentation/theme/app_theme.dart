@@ -12,18 +12,18 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    textTheme: const TextTheme(
-      bodySmall: TextStyle(
+    /*textTheme: const TextTheme(
+      labelSmall: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 13.0,
         color: Colors.black,
       ),
-      bodyMedium: TextStyle(
+      labelMedium: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 15.0,
         color: Colors.black,
       ),
-    ),
+    ),*/
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -37,17 +37,17 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    textTheme: const TextTheme(
-      bodySmall: TextStyle(
+    /*textTheme: const TextTheme(
+      labelSmall: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 13.0,
         color: Colors.white,
       ),
-      bodyMedium: TextStyle(
+      labelMedium: TextStyle(
         fontWeight: FontWeight.w400,
         fontSize: 15.0,
         color: Colors.white,
       ),
-    ),
+    ),*/
   );
 }
