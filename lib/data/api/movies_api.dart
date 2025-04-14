@@ -15,10 +15,11 @@ abstract class MoviesApi {
   Future<MoviesResponse> getTopRatedMovies({
     @Query('api_key') required String apiKey,
     @Query('page') required String page,
+    @CancelRequest() CancelToken? cancelToken,
   });
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 MoviesApi moviesApi(Ref ref) => MoviesApi(
       ref.watch(dioProvider),
     );

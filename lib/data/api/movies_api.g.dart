@@ -21,12 +21,14 @@ class _MoviesApi implements MoviesApi {
   Future<MoviesResponse> getTopRatedMovies({
     required String apiKey,
     required String page,
+    CancelToken? cancelToken,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'api_key': apiKey,
       r'page': page,
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MoviesResponse>(
@@ -36,6 +38,7 @@ class _MoviesApi implements MoviesApi {
             '/movie/top_rated',
             queryParameters: queryParameters,
             data: _data,
+            cancelToken: cancelToken,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
@@ -82,11 +85,11 @@ class _MoviesApi implements MoviesApi {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$moviesApiHash() => r'fb954db93a7d4422c4b9c9f22f0decb7d1f19a7b';
+String _$moviesApiHash() => r'50802d5bced514557ec4189e234b3e69d3373116';
 
 /// See also [moviesApi].
 @ProviderFor(moviesApi)
-final moviesApiProvider = AutoDisposeProvider<MoviesApi>.internal(
+final moviesApiProvider = Provider<MoviesApi>.internal(
   moviesApi,
   name: r'moviesApiProvider',
   debugGetCreateSourceHash:
@@ -97,6 +100,6 @@ final moviesApiProvider = AutoDisposeProvider<MoviesApi>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef MoviesApiRef = AutoDisposeProviderRef<MoviesApi>;
+typedef MoviesApiRef = ProviderRef<MoviesApi>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

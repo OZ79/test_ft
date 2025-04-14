@@ -25,7 +25,7 @@ final moviesRepositoryProvider =
 // ignore: unused_element
 typedef MoviesRepositoryRef = AutoDisposeProviderRef<MoviesRepositoryImpl>;
 String _$fetchTopRatedMoviesHash() =>
-    r'4b740a575679710882af0760580442fed5741d06';
+    r'4a5ed9010a224e586493cb47f1e808d902b469f0';
 
 /// Copied from Dart SDK
 class _SystemHash {

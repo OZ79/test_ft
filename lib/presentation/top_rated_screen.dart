@@ -7,20 +7,31 @@ import 'package:test_ft/data/repository_impl/movies_repository_impl.dart';
 import 'package:test_ft/domain/enums.dart';
 import 'package:test_ft/utils/utils.dart';
 
+const imageHeight = 300.0;
+const pageSize = 20;
+
 class TopRatedScreen extends ConsumerWidget {
-  static const pageSize = 20;
   const TopRatedScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.73,
+        mainAxisSpacing: 15,
+      ),
       itemBuilder: (context, index) {
         final page = index ~/ pageSize + 1;
         final indexInPage = index % pageSize;
         final AsyncValue<MoviesResponse> responseAsync = ref.watch(fetchTopRatedMoviesProvider(page));
         return responseAsync.when(
           error: (error, stack) => Text(error.toString()),
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const SizedBox(
+              height: imageHeight,
+              child: Center(
+                child: CircularProgressIndicator(),
+              )),
           data: (response) {
             if (indexInPage >= response.results.length) {
               return null;
@@ -49,16 +60,21 @@ class MovieTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final imageUrl = Utils.getImageUrl(movieItem.posterPath!, ImageSize.w92);
     return SizedBox(
-      height: 270.0,
+      height: imageHeight,
       child: ClipRRect(
         clipBehavior: Clip.hardEdge,
         borderRadius: const BorderRadius.all(
-          Radius.circular(12),
+          Radius.circular(15.0),
         ),
         child: Image(
-          fit: BoxFit.cover,
-          image: CachedNetworkImageProvider(imageUrl),
-        ),
+            fit: BoxFit.cover,
+            image: CachedNetworkImageProvider(imageUrl),
+            frameBuilder: (context, child, frame, sync) {
+              if (frame == null) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              return child;
+            }),
       ),
     );
   }

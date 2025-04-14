@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:test_ft/app_constants.dart';
@@ -13,8 +16,12 @@ class MoviesRepositoryImpl implements MoviesRepositoryRepository {
   const MoviesRepositoryImpl(this._api);
 
   @override
-  Future<MoviesResponse> getTopRatedMovies(int page) async {
-    return await _api.getTopRatedMovies(apiKey: AppConstants.apiKey, page: page.toString());
+  Future<MoviesResponse> getTopRatedMovies(int page, CancelToken? cancelToken) async {
+    return await _api.getTopRatedMovies(
+      apiKey: AppConstants.apiKey,
+      page: page.toString(),
+      cancelToken: cancelToken,
+    );
   }
 }
 
@@ -26,5 +33,25 @@ MoviesRepositoryImpl moviesRepository(Ref ref) => MoviesRepositoryImpl(
 @riverpod
 Future<MoviesResponse> fetchTopRatedMovies(Ref ref, int page) {
   final moviesRepo = ref.watch(moviesRepositoryProvider);
-  return moviesRepo.getTopRatedMovies(page);
+
+  final cancelToken = CancelToken();
+  final link = ref.keepAlive();
+  Timer? timer;
+
+  ref.onDispose(() {
+    cancelToken.cancel();
+    timer?.cancel();
+  });
+
+  ref.onCancel(() {
+    timer = Timer(const Duration(seconds: AppConstants.disposeCachedDataTimeInSec), () {
+      link.close();
+    });
+  });
+
+  ref.onResume(() {
+    timer?.cancel();
+  });
+
+  return moviesRepo.getTopRatedMovies(page, cancelToken);
 }

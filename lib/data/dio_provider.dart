@@ -5,7 +5,7 @@ import 'package:test_ft/app_constants.dart';
 
 part 'dio_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Dio dio(Ref ref) {
   final dio = Dio();
   dio.options.baseUrl = AppConstants.baseUrl;
