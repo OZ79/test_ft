@@ -14,8 +14,7 @@ class ThemeMode extends _$ThemeMode {
     final sharedPreferences = ref.read(sharedPreferencesProvider);
     final isLight = sharedPreferences.getBool(AppConstants.themeModeKey);
     if (isLight == null) {
-      var brightness = SchedulerBinding.instance.platformDispatcher.platformBrightness;
-      return brightness == Brightness.light;
+      return SchedulerBinding.instance.platformDispatcher.platformBrightness == Brightness.light;
     } else {
       return isLight;
     }
