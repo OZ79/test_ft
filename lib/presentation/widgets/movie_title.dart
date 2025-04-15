@@ -1,7 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_ft/data/favorite_movies_provider.dart';
 import 'package:test_ft/data/models/movie_item.dart';
 import 'package:test_ft/domain/enums.dart';
+import 'package:test_ft/presentation/widgets/like_button.dart';
 import 'package:test_ft/utils/utils.dart';
 
 class MovieTile extends StatelessWidget {
@@ -60,48 +63,24 @@ class MovieTile extends StatelessWidget {
         Positioned(
           top: 10.0,
           right: 10.0,
-          child: _LikeButton(
-            isLiked: false,
-            onTap: (value) => print(value),
+          child: Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              final favoriteMovies = ref.watch(favoriteMoviesProvider);
+              final isLiked = favoriteMovies.contains(movieItem.id.toString());
+              return LikeButton(
+                isLiked: isLiked,
+                onTap: (value) {
+                  if (value) {
+                    ref.read(favoriteMoviesProvider.notifier).addMovie(movieItem.id.toString());
+                  } else {
+                    ref.read(favoriteMoviesProvider.notifier).removeMovie(movieItem.id.toString());
+                  }
+                },
+              );
+            },
           ),
         ),
       ],
-    );
-  }
-}
-
-class _LikeButton extends StatefulWidget {
-  final bool isLiked;
-  final ValueChanged<bool> onTap;
-  const _LikeButton({required this.isLiked, required this.onTap});
-
-  @override
-  State<_LikeButton> createState() => _LikeButtonState();
-}
-
-class _LikeButtonState extends State<_LikeButton> {
-  late bool _isLiked;
-
-  @override
-  void initState() {
-    _isLiked = widget.isLiked;
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(
-          () => _isLiked = !_isLiked,
-        );
-        widget.onTap(_isLiked);
-      },
-      child: Icon(
-        size: 25.0,
-        _isLiked ? Icons.favorite : Icons.favorite_outline,
-        color: Colors.yellow,
-      ),
     );
   }
 }

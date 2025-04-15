@@ -5,4 +5,5 @@ class AppConstants {
 
   static const int disposeCachedDataTimeInSec = 30;
   static const String themeModeKey = 'theme_mode_key';
+  static const String favoriteMoviesKey = 'favorite_movies_key';
 }

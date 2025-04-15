@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_ft/data/favorite_movies_provider.dart';
 import 'package:test_ft/data/models/movies_details_response.dart';
 import 'package:test_ft/data/repository_impl/movies_repository_impl.dart';
 import 'package:test_ft/domain/enums.dart';
@@ -79,8 +80,14 @@ class DetailsScreen extends ConsumerWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: _AddToFavoriteButton(
-                        needAdd: true,
-                        onPressed: (value) => {print(value)},
+                        needAdd: !ref.read(favoriteMoviesProvider.notifier).isFavorite(movieId),
+                        onPressed: (value) {
+                          if (value) {
+                            ref.read(favoriteMoviesProvider.notifier).addMovie(movieId);
+                          } else {
+                            ref.read(favoriteMoviesProvider.notifier).removeMovie(movieId);
+                          }
+                        },
                       ),
                     ),
                   ],
@@ -121,10 +128,8 @@ class _LikeButtonState extends State<_AddToFavoriteButton> {
           () => _needAdd = !_needAdd,
         );
       },
-      child: Text(
-        _needAdd ? 'Додати в Улюблене' : 'Видалити з Улюбленого',
-        style: Theme.of(context).textTheme.titleLarge,
-      ),
+      child:
+          Text(_needAdd ? 'Додати в Улюблене' : 'Видалити з Улюбленого', style: Theme.of(context).textTheme.titleLarge),
     );
   }
 }
