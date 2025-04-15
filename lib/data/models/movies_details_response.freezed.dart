@@ -18,11 +18,11 @@ mixin _$MoviesDetailsResponse {
   String get title;
   String get overview;
   @JsonKey(name: 'poster_path')
-  String get posterPath;
+  String? get posterPath;
   @JsonKey(name: 'vote_average')
-  double get voteAverage;
+  double? get voteAverage;
   @JsonKey(name: 'release_date')
-  String get releaseDate;
+  String? get releaseDate;
 
   /// Create a copy of MoviesDetailsResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -71,9 +71,9 @@ abstract mixin class $MoviesDetailsResponseCopyWith<$Res> {
   $Res call(
       {String title,
       String overview,
-      @JsonKey(name: 'poster_path') String posterPath,
-      @JsonKey(name: 'vote_average') double voteAverage,
-      @JsonKey(name: 'release_date') String releaseDate});
+      @JsonKey(name: 'poster_path') String? posterPath,
+      @JsonKey(name: 'vote_average') double? voteAverage,
+      @JsonKey(name: 'release_date') String? releaseDate});
 }
 
 /// @nodoc
@@ -91,9 +91,9 @@ class _$MoviesDetailsResponseCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? overview = null,
-    Object? posterPath = null,
-    Object? voteAverage = null,
-    Object? releaseDate = null,
+    Object? posterPath = freezed,
+    Object? voteAverage = freezed,
+    Object? releaseDate = freezed,
   }) {
     return _then(_self.copyWith(
       title: null == title
@@ -104,18 +104,18 @@ class _$MoviesDetailsResponseCopyWithImpl<$Res>
           ? _self.overview
           : overview // ignore: cast_nullable_to_non_nullable
               as String,
-      posterPath: null == posterPath
+      posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      voteAverage: null == voteAverage
+              as String?,
+      voteAverage: freezed == voteAverage
           ? _self.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
-              as double,
-      releaseDate: null == releaseDate
+              as double?,
+      releaseDate: freezed == releaseDate
           ? _self.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -127,9 +127,9 @@ class _MoviesDetailsResponse implements MoviesDetailsResponse {
   const _MoviesDetailsResponse(
       {required this.title,
       required this.overview,
-      @JsonKey(name: 'poster_path') required this.posterPath,
-      @JsonKey(name: 'vote_average') required this.voteAverage,
-      @JsonKey(name: 'release_date') required this.releaseDate});
+      @JsonKey(name: 'poster_path') this.posterPath,
+      @JsonKey(name: 'vote_average') this.voteAverage,
+      @JsonKey(name: 'release_date') this.releaseDate});
   factory _MoviesDetailsResponse.fromJson(Map<String, dynamic> json) =>
       _$MoviesDetailsResponseFromJson(json);
 
@@ -139,13 +139,13 @@ class _MoviesDetailsResponse implements MoviesDetailsResponse {
   final String overview;
   @override
   @JsonKey(name: 'poster_path')
-  final String posterPath;
+  final String? posterPath;
   @override
   @JsonKey(name: 'vote_average')
-  final double voteAverage;
+  final double? voteAverage;
   @override
   @JsonKey(name: 'release_date')
-  final String releaseDate;
+  final String? releaseDate;
 
   /// Create a copy of MoviesDetailsResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -201,9 +201,9 @@ abstract mixin class _$MoviesDetailsResponseCopyWith<$Res>
   $Res call(
       {String title,
       String overview,
-      @JsonKey(name: 'poster_path') String posterPath,
-      @JsonKey(name: 'vote_average') double voteAverage,
-      @JsonKey(name: 'release_date') String releaseDate});
+      @JsonKey(name: 'poster_path') String? posterPath,
+      @JsonKey(name: 'vote_average') double? voteAverage,
+      @JsonKey(name: 'release_date') String? releaseDate});
 }
 
 /// @nodoc
@@ -221,9 +221,9 @@ class __$MoviesDetailsResponseCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? overview = null,
-    Object? posterPath = null,
-    Object? voteAverage = null,
-    Object? releaseDate = null,
+    Object? posterPath = freezed,
+    Object? voteAverage = freezed,
+    Object? releaseDate = freezed,
   }) {
     return _then(_MoviesDetailsResponse(
       title: null == title
@@ -234,18 +234,18 @@ class __$MoviesDetailsResponseCopyWithImpl<$Res>
           ? _self.overview
           : overview // ignore: cast_nullable_to_non_nullable
               as String,
-      posterPath: null == posterPath
+      posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
-              as String,
-      voteAverage: null == voteAverage
+              as String?,
+      voteAverage: freezed == voteAverage
           ? _self.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
-              as double,
-      releaseDate: null == releaseDate
+              as double?,
+      releaseDate: freezed == releaseDate
           ? _self.releaseDate
           : releaseDate // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }

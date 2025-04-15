@@ -25,7 +25,6 @@ class DetailsScreen extends ConsumerWidget {
             error: (error, stack) => Text(error.toString()),
             loading: () => const Center(child: CircularProgressIndicator()),
             data: (response) {
-              final imageUrl = Utils.getImageUrl(response.posterPath, ImageSize.w154);
               return Padding(
                 padding: const EdgeInsets.only(top: 10.0, right: 10.0, left: 10.0),
                 child: Column(
@@ -35,25 +34,30 @@ class DetailsScreen extends ConsumerWidget {
                         child: Column(
                           spacing: 10.0,
                           children: [
-                            Image(
-                                fit: BoxFit.cover,
-                                image: CachedNetworkImageProvider(imageUrl),
-                                frameBuilder: (context, child, frame, sync) {
-                                  if (frame == null) {
-                                    return const Center(child: CircularProgressIndicator());
-                                  }
-                                  return child;
-                                }),
+                            response.posterPath != null
+                                ? Image(
+                                    fit: BoxFit.cover,
+                                    image: CachedNetworkImageProvider(Utils.getImageUrl(
+                                      response.posterPath!,
+                                      ImageSize.w154,
+                                    )),
+                                    frameBuilder: (context, child, frame, sync) {
+                                      if (frame == null) {
+                                        return const Center(child: CircularProgressIndicator());
+                                      }
+                                      return child;
+                                    })
+                                : const SizedBox.expand(),
                             Row(
                               spacing: 15.0,
                               children: [
                                 Text(
-                                  "Rating: ${response.voteAverage.toInt()}",
+                                  "Rating: ${response.voteAverage?.toInt()}",
                                   style: Theme.of(context).textTheme.titleLarge!.copyWith(),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  response.releaseDate,
+                                  response.releaseDate ?? '',
                                   style: Theme.of(context).textTheme.titleLarge!.copyWith(),
                                   overflow: TextOverflow.ellipsis,
                                 ),

@@ -32,7 +32,10 @@ class MovieTile extends StatelessWidget {
                 child: movieItem.posterPath != null
                     ? Image(
                         fit: BoxFit.cover,
-                        image: CachedNetworkImageProvider(Utils.getImageUrl(movieItem.posterPath!, ImageSize.w92)),
+                        image: CachedNetworkImageProvider(Utils.getImageUrl(
+                          movieItem.posterPath!,
+                          ImageSize.w92,
+                        )),
                         frameBuilder: (context, child, frame, sync) {
                           if (frame == null) {
                             return const Center(child: CircularProgressIndicator());

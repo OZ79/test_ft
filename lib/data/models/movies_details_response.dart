@@ -11,9 +11,9 @@ abstract class MoviesDetailsResponse with _$MoviesDetailsResponse {
   const factory MoviesDetailsResponse({
     required String title,
     required String overview,
-    @JsonKey(name: 'poster_path') required String posterPath,
-    @JsonKey(name: 'vote_average') required double voteAverage,
-    @JsonKey(name: 'release_date') required String releaseDate,
+    @JsonKey(name: 'poster_path') String? posterPath,
+    @JsonKey(name: 'vote_average') double? voteAverage,
+    @JsonKey(name: 'release_date') String? releaseDate,
   }) = _MoviesDetailsResponse;
 
   factory MoviesDetailsResponse.fromJson(Map<String, dynamic> json) => _$MoviesDetailsResponseFromJson(json);

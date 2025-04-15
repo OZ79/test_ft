@@ -7,6 +7,7 @@ import 'package:test_ft/generated/assets/assets.gen.dart';
 import 'package:test_ft/presentation/top_rated_screen.dart';
 import 'package:test_ft/presentation/widgets/movie_title.dart';
 import 'package:test_ft/utils/debouncer.dart';
+import 'package:test_ft/utils/utils.dart';
 
 const kLikeDebouncerMilliseconds = 700;
 
@@ -31,8 +32,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isLightMode = Theme.of(context).brightness == Brightness.light;
-    final colorFilter = ColorFilter.mode(isLightMode ? Colors.black : Colors.white, BlendMode.srcIn);
+    final colorFilter = ColorFilter.mode(
+      Utils.isLightMode(context) ? Colors.black : Colors.white,
+      BlendMode.srcIn,
+    );
     return Scaffold(
         appBar: AppBar(title: const Text('Search Movie')),
         body: SafeArea(
