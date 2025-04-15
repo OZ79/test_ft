@@ -311,5 +311,155 @@ class _FetchMovieDetailsProviderElement
   @override
   String get movieId => (origin as FetchMovieDetailsProvider).movieId;
 }
+
+String _$fetchtSearchMoviesHash() =>
+    r'59b03f567cec73471a97d4144e071f3fb3b2cbdb';
+
+/// See also [fetchtSearchMovies].
+@ProviderFor(fetchtSearchMovies)
+const fetchtSearchMoviesProvider = FetchtSearchMoviesFamily();
+
+/// See also [fetchtSearchMovies].
+class FetchtSearchMoviesFamily extends Family<AsyncValue<MoviesResponse>> {
+  /// See also [fetchtSearchMovies].
+  const FetchtSearchMoviesFamily();
+
+  /// See also [fetchtSearchMovies].
+  FetchtSearchMoviesProvider call(
+    int page,
+    String query,
+  ) {
+    return FetchtSearchMoviesProvider(
+      page,
+      query,
+    );
+  }
+
+  @override
+  FetchtSearchMoviesProvider getProviderOverride(
+    covariant FetchtSearchMoviesProvider provider,
+  ) {
+    return call(
+      provider.page,
+      provider.query,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchtSearchMoviesProvider';
+}
+
+/// See also [fetchtSearchMovies].
+class FetchtSearchMoviesProvider
+    extends AutoDisposeFutureProvider<MoviesResponse> {
+  /// See also [fetchtSearchMovies].
+  FetchtSearchMoviesProvider(
+    int page,
+    String query,
+  ) : this._internal(
+          (ref) => fetchtSearchMovies(
+            ref as FetchtSearchMoviesRef,
+            page,
+            query,
+          ),
+          from: fetchtSearchMoviesProvider,
+          name: r'fetchtSearchMoviesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchtSearchMoviesHash,
+          dependencies: FetchtSearchMoviesFamily._dependencies,
+          allTransitiveDependencies:
+              FetchtSearchMoviesFamily._allTransitiveDependencies,
+          page: page,
+          query: query,
+        );
+
+  FetchtSearchMoviesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.page,
+    required this.query,
+  }) : super.internal();
+
+  final int page;
+  final String query;
+
+  @override
+  Override overrideWith(
+    FutureOr<MoviesResponse> Function(FetchtSearchMoviesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchtSearchMoviesProvider._internal(
+        (ref) => create(ref as FetchtSearchMoviesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        page: page,
+        query: query,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<MoviesResponse> createElement() {
+    return _FetchtSearchMoviesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchtSearchMoviesProvider &&
+        other.page == page &&
+        other.query == query;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, page.hashCode);
+    hash = _SystemHash.combine(hash, query.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin FetchtSearchMoviesRef on AutoDisposeFutureProviderRef<MoviesResponse> {
+  /// The parameter `page` of this provider.
+  int get page;
+
+  /// The parameter `query` of this provider.
+  String get query;
+}
+
+class _FetchtSearchMoviesProviderElement
+    extends AutoDisposeFutureProviderElement<MoviesResponse>
+    with FetchtSearchMoviesRef {
+  _FetchtSearchMoviesProviderElement(super.provider);
+
+  @override
+  int get page => (origin as FetchtSearchMoviesProvider).page;
+  @override
+  String get query => (origin as FetchtSearchMoviesProvider).query;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

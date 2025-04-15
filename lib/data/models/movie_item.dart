@@ -11,8 +11,10 @@ abstract class MovieItem with _$MovieItem {
   const factory MovieItem({
     required int id,
     required String title,
+    required String overview,
     @JsonKey(name: 'poster_path') String? posterPath,
     @JsonKey(name: 'vote_average') double? voteAverage,
+    @JsonKey(name: 'release_date') String? releaseDate,
   }) = _MovieItem;
 
   factory MovieItem.fromJson(Map<String, dynamic> json) => _$MovieItemFromJson(json);

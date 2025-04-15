@@ -9,14 +9,15 @@ import 'package:test_ft/utils/utils.dart';
 
 class MovieTile extends StatelessWidget {
   final MovieItem movieItem;
+  final bool isExpanded;
   const MovieTile({
     super.key,
     required this.movieItem,
+    this.isExpanded = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = Utils.getImageUrl(movieItem.posterPath!, ImageSize.w92);
     return Stack(
       children: [
         Column(
@@ -29,15 +30,17 @@ class MovieTile extends StatelessWidget {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(15.0),
                 ),
-                child: Image(
-                    fit: BoxFit.cover,
-                    image: CachedNetworkImageProvider(imageUrl),
-                    frameBuilder: (context, child, frame, sync) {
-                      if (frame == null) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      return child;
-                    }),
+                child: movieItem.posterPath != null
+                    ? Image(
+                        fit: BoxFit.cover,
+                        image: CachedNetworkImageProvider(Utils.getImageUrl(movieItem.posterPath!, ImageSize.w92)),
+                        frameBuilder: (context, child, frame, sync) {
+                          if (frame == null) {
+                            return const Center(child: CircularProgressIndicator());
+                          }
+                          return child;
+                        })
+                    : const SizedBox.expand(),
               ),
             ),
             Column(
@@ -56,30 +59,42 @@ class MovieTile extends StatelessWidget {
                   'Rating: ${movieItem.voteAverage?.toInt()}',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
+                if (isExpanded) ...[
+                  Text(
+                    movieItem.releaseDate ?? '',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Text(
+                    movieItem.overview,
+                    maxLines: 3,
+                    style: Theme.of(context).textTheme.titleSmall,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ]
               ],
             ),
           ],
         ),
-        Positioned(
-          top: 10.0,
-          right: 10.0,
-          child: Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              final favoriteMovies = ref.watch(favoriteMoviesProvider);
-              final isLiked = favoriteMovies.contains(movieItem.id.toString());
-              return LikeButton(
-                isLiked: isLiked,
-                onTap: (value) {
-                  if (value) {
-                    ref.read(favoriteMoviesProvider.notifier).addMovie(movieItem.id.toString());
-                  } else {
-                    ref.read(favoriteMoviesProvider.notifier).removeMovie(movieItem.id.toString());
-                  }
-                },
-              );
-            },
+        if (!isExpanded)
+          Positioned(
+            top: 10.0,
+            right: 10.0,
+            child: Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                ref.watch(favoriteMoviesProvider);
+                return LikeButton(
+                  isLiked: ref.read(favoriteMoviesProvider.notifier).isFavorite(movieItem.id.toString()),
+                  onTap: (value) {
+                    if (value) {
+                      ref.read(favoriteMoviesProvider.notifier).addMovie(movieItem.id.toString());
+                    } else {
+                      ref.read(favoriteMoviesProvider.notifier).removeMovie(movieItem.id.toString());
+                    }
+                  },
+                );
+              },
+            ),
           ),
-        ),
       ],
     );
   }

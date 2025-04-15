@@ -33,6 +33,16 @@ class MoviesRepositoryImpl implements MoviesRepositoryRepository {
       cancelToken: cancelToken,
     );
   }
+
+  @override
+  Future<MoviesResponse> getSearchMovies(int page, String query, CancelToken? cancelToken) async {
+    return await _api.getSearchMovies(
+      apiKey: AppConstants.apiKey,
+      page: page.toString(),
+      query: query,
+      cancelToken: cancelToken,
+    );
+  }
 }
 
 @Riverpod(keepAlive: true)
@@ -90,4 +100,30 @@ Future<MoviesDetailsResponse> fetchMovieDetails(Ref ref, String movieId) {
   });
 
   return moviesRepo.getMovieDetails(movieId, cancelToken);
+}
+
+@riverpod
+Future<MoviesResponse> fetchtSearchMovies(Ref ref, int page, String query) {
+  final moviesRepo = ref.watch(moviesRepositoryProvider);
+
+  final cancelToken = CancelToken();
+  final link = ref.keepAlive();
+  Timer? timer;
+
+  ref.onDispose(() {
+    cancelToken.cancel();
+    timer?.cancel();
+  });
+
+  ref.onCancel(() {
+    timer = Timer(const Duration(seconds: AppConstants.disposeCachedDataTimeInSec), () {
+      link.close();
+    });
+  });
+
+  ref.onResume(() {
+    timer?.cancel();
+  });
+
+  return moviesRepo.getSearchMovies(page, query, cancelToken);
 }

@@ -17,10 +17,13 @@ T _$identity<T>(T value) => value;
 mixin _$MovieItem {
   int get id;
   String get title;
+  String get overview;
   @JsonKey(name: 'poster_path')
   String? get posterPath;
   @JsonKey(name: 'vote_average')
   double? get voteAverage;
+  @JsonKey(name: 'release_date')
+  String? get releaseDate;
 
   /// Create a copy of MovieItem
   /// with the given fields replaced by the non-null parameter values.
@@ -39,20 +42,24 @@ mixin _$MovieItem {
             other is MovieItem &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.overview, overview) ||
+                other.overview == overview) &&
             (identical(other.posterPath, posterPath) ||
                 other.posterPath == posterPath) &&
             (identical(other.voteAverage, voteAverage) ||
-                other.voteAverage == voteAverage));
+                other.voteAverage == voteAverage) &&
+            (identical(other.releaseDate, releaseDate) ||
+                other.releaseDate == releaseDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, title, posterPath, voteAverage);
+  int get hashCode => Object.hash(
+      runtimeType, id, title, overview, posterPath, voteAverage, releaseDate);
 
   @override
   String toString() {
-    return 'MovieItem(id: $id, title: $title, posterPath: $posterPath, voteAverage: $voteAverage)';
+    return 'MovieItem(id: $id, title: $title, overview: $overview, posterPath: $posterPath, voteAverage: $voteAverage, releaseDate: $releaseDate)';
   }
 }
 
@@ -64,8 +71,10 @@ abstract mixin class $MovieItemCopyWith<$Res> {
   $Res call(
       {int id,
       String title,
+      String overview,
       @JsonKey(name: 'poster_path') String? posterPath,
-      @JsonKey(name: 'vote_average') double? voteAverage});
+      @JsonKey(name: 'vote_average') double? voteAverage,
+      @JsonKey(name: 'release_date') String? releaseDate});
 }
 
 /// @nodoc
@@ -82,8 +91,10 @@ class _$MovieItemCopyWithImpl<$Res> implements $MovieItemCopyWith<$Res> {
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? overview = null,
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
+    Object? releaseDate = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -94,6 +105,10 @@ class _$MovieItemCopyWithImpl<$Res> implements $MovieItemCopyWith<$Res> {
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      overview: null == overview
+          ? _self.overview
+          : overview // ignore: cast_nullable_to_non_nullable
+              as String,
       posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
@@ -102,6 +117,10 @@ class _$MovieItemCopyWithImpl<$Res> implements $MovieItemCopyWith<$Res> {
           ? _self.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
               as double?,
+      releaseDate: freezed == releaseDate
+          ? _self.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -113,8 +132,10 @@ class _MovieItem implements MovieItem {
   const _MovieItem(
       {required this.id,
       required this.title,
+      required this.overview,
       @JsonKey(name: 'poster_path') this.posterPath,
-      @JsonKey(name: 'vote_average') this.voteAverage});
+      @JsonKey(name: 'vote_average') this.voteAverage,
+      @JsonKey(name: 'release_date') this.releaseDate});
   factory _MovieItem.fromJson(Map<String, dynamic> json) =>
       _$MovieItemFromJson(json);
 
@@ -123,11 +144,16 @@ class _MovieItem implements MovieItem {
   @override
   final String title;
   @override
+  final String overview;
+  @override
   @JsonKey(name: 'poster_path')
   final String? posterPath;
   @override
   @JsonKey(name: 'vote_average')
   final double? voteAverage;
+  @override
+  @JsonKey(name: 'release_date')
+  final String? releaseDate;
 
   /// Create a copy of MovieItem
   /// with the given fields replaced by the non-null parameter values.
@@ -151,20 +177,24 @@ class _MovieItem implements MovieItem {
             other is _MovieItem &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.overview, overview) ||
+                other.overview == overview) &&
             (identical(other.posterPath, posterPath) ||
                 other.posterPath == posterPath) &&
             (identical(other.voteAverage, voteAverage) ||
-                other.voteAverage == voteAverage));
+                other.voteAverage == voteAverage) &&
+            (identical(other.releaseDate, releaseDate) ||
+                other.releaseDate == releaseDate));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, title, posterPath, voteAverage);
+  int get hashCode => Object.hash(
+      runtimeType, id, title, overview, posterPath, voteAverage, releaseDate);
 
   @override
   String toString() {
-    return 'MovieItem(id: $id, title: $title, posterPath: $posterPath, voteAverage: $voteAverage)';
+    return 'MovieItem(id: $id, title: $title, overview: $overview, posterPath: $posterPath, voteAverage: $voteAverage, releaseDate: $releaseDate)';
   }
 }
 
@@ -179,8 +209,10 @@ abstract mixin class _$MovieItemCopyWith<$Res>
   $Res call(
       {int id,
       String title,
+      String overview,
       @JsonKey(name: 'poster_path') String? posterPath,
-      @JsonKey(name: 'vote_average') double? voteAverage});
+      @JsonKey(name: 'vote_average') double? voteAverage,
+      @JsonKey(name: 'release_date') String? releaseDate});
 }
 
 /// @nodoc
@@ -197,8 +229,10 @@ class __$MovieItemCopyWithImpl<$Res> implements _$MovieItemCopyWith<$Res> {
   $Res call({
     Object? id = null,
     Object? title = null,
+    Object? overview = null,
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
+    Object? releaseDate = freezed,
   }) {
     return _then(_MovieItem(
       id: null == id
@@ -209,6 +243,10 @@ class __$MovieItemCopyWithImpl<$Res> implements _$MovieItemCopyWith<$Res> {
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      overview: null == overview
+          ? _self.overview
+          : overview // ignore: cast_nullable_to_non_nullable
+              as String,
       posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
@@ -217,6 +255,10 @@ class __$MovieItemCopyWithImpl<$Res> implements _$MovieItemCopyWith<$Res> {
           ? _self.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
               as double?,
+      releaseDate: freezed == releaseDate
+          ? _self.releaseDate
+          : releaseDate // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

@@ -25,6 +25,14 @@ abstract class MoviesApi {
     @Path('movieId') required String movieId,
     @CancelRequest() CancelToken? cancelToken,
   });
+
+  @GET('search/movie')
+  Future<MoviesResponse> getSearchMovies({
+    @Query('api_key') required String apiKey,
+    @Query('page') required String page,
+    @Query('query') required String query,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }
 
 @Riverpod(keepAlive: true)
