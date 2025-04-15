@@ -50,9 +50,6 @@ app.*.map.json
 /macos
 /web
 
-# Generates files, like a Intl, Flutter Gen
-**/generated/
-
 # FVM Version Cache
 .fvm/
 .fvmrc
