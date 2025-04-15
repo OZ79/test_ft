@@ -16,11 +16,11 @@ class DetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<MoviesDetailsResponse> responseAsync = ref.watch(fetchMovieDetailsProvider(movieId));
     return Scaffold(
       appBar: AppBar(title: const Text('Details')),
       body: SafeArea(
         child: Builder(builder: (context) {
+          final AsyncValue<MoviesDetailsResponse> responseAsync = ref.watch(fetchMovieDetailsProvider(movieId));
           return responseAsync.when(
             error: (error, stack) => Text(error.toString()),
             loading: () => const Center(child: CircularProgressIndicator()),
