@@ -61,9 +61,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                             hintText: 'Search movies',
                             hintStyle: Theme.of(context).textTheme.titleLarge!,
                           ),
-                          onEditingComplete: () {
-                            FocusManager.instance.primaryFocus?.unfocus();
-                          },
                           onChanged: (text) {
                             if (text.length >= 3) {
                               _debouncer.run(() {
