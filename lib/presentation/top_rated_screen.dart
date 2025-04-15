@@ -10,7 +10,7 @@ import 'package:test_ft/presentation/theme/theme_mode_provider.dart';
 import 'package:test_ft/presentation/widgets/movie_title.dart';
 import 'package:test_ft/utils/utils.dart';
 
-const pageSize = 20;
+const kPageSize = 20;
 
 class TopRatedScreen extends ConsumerWidget {
   const TopRatedScreen({super.key});
@@ -57,8 +57,8 @@ class TopRatedScreen extends ConsumerWidget {
             mainAxisSpacing: 15,
           ),
           itemBuilder: (context, index) {
-            final page = index ~/ pageSize + 1;
-            final indexInPage = index % pageSize;
+            final page = index ~/ kPageSize + 1;
+            final indexInPage = index % kPageSize;
             final AsyncValue<MoviesResponse> responseAsync = ref.watch(fetchTopRatedMoviesProvider(page));
             return responseAsync.when(
               error: (error, stack) => Text(error.toString()),

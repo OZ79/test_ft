@@ -9,7 +9,7 @@ import 'package:test_ft/presentation/widgets/movie_title.dart';
 import 'package:test_ft/utils/debouncer.dart';
 import 'package:test_ft/utils/utils.dart';
 
-const kLikeDebouncerMilliseconds = 700;
+const kLikeDebouncerMilliseconds = 400;
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -93,8 +93,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       if (_query == null) {
                         return const SizedBox.expand();
                       }
-                      final page = index ~/ pageSize + 1;
-                      final indexInPage = index % pageSize;
+                      final page = index ~/ kPageSize + 1;
+                      final indexInPage = index % kPageSize;
                       final AsyncValue<MoviesResponse> responseAsync =
                           ref.watch(fetchtSearchMoviesProvider(page, _query!));
                       return responseAsync.when(

@@ -86,10 +86,11 @@ class DetailsScreen extends ConsumerWidget {
                       child: _AddToFavoriteButton(
                         needAdd: !ref.read(favoriteMoviesProvider.notifier).isFavorite(movieId),
                         onPressed: (value) {
+                          final favoriteMovies = ref.read(favoriteMoviesProvider.notifier);
                           if (value) {
-                            ref.read(favoriteMoviesProvider.notifier).addMovie(movieId);
+                            favoriteMovies.addMovie(movieId);
                           } else {
-                            ref.read(favoriteMoviesProvider.notifier).removeMovie(movieId);
+                            favoriteMovies.removeMovie(movieId);
                           }
                         },
                       ),
