@@ -21,7 +21,6 @@ class MovieTile extends StatelessWidget {
     return Stack(
       children: [
         Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           spacing: 5.0,
           children: [
             Expanded(
