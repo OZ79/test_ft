@@ -6,6 +6,7 @@ import 'package:test_ft/data/models/movies_response.dart';
 import 'package:test_ft/data/repository_impl/movies_repository_impl.dart';
 import 'package:test_ft/generated/assets/assets.gen.dart';
 import 'package:test_ft/presentation/app_router.dart';
+import 'package:test_ft/presentation/theme/theme_mode_provider.dart';
 import 'package:test_ft/presentation/widgets/movie_title.dart';
 
 const pageSize = 20;
@@ -15,6 +16,8 @@ class TopRatedScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLightMode = Theme.of(context).brightness == Brightness.light;
+    final colorFilter = ColorFilter.mode(isLightMode ? Colors.black : Colors.white, BlendMode.srcIn);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movie'),
@@ -24,6 +27,7 @@ class TopRatedScreen extends ConsumerWidget {
               Assets.icons.searchIcon,
               width: 28,
               height: 28,
+              colorFilter: colorFilter,
             ),
             onPressed: () => context.go(ScreenPaths.search),
           ),
@@ -35,8 +39,9 @@ class TopRatedScreen extends ConsumerWidget {
               Assets.icons.sunIcon,
               width: 28,
               height: 28,
+              colorFilter: colorFilter,
             ),
-            onPressed: () {},
+            onPressed: () => ref.read(themeModeProvider.notifier).tougle(),
           ),
         ],
       ),

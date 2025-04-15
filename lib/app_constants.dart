@@ -4,4 +4,5 @@ class AppConstants {
   static const String baseImageUrl = "https://image.tmdb.org/t/p/";
 
   static const int disposeCachedDataTimeInSec = 30;
+  static const String themeModeKey = 'theme_mode_key';
 }
