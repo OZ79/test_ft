@@ -9,9 +9,9 @@ part 'movie_item.g.dart';
 abstract class MovieItem with _$MovieItem {
   @JsonSerializable(includeIfNull: false)
   const factory MovieItem({
-    required int id,
-    required String title,
-    required String overview,
+    int? id,
+    String? title,
+    String? overview,
     @JsonKey(name: 'poster_path') String? posterPath,
     @JsonKey(name: 'vote_average') double? voteAverage,
     @JsonKey(name: 'release_date') String? releaseDate,

@@ -9,8 +9,8 @@ part 'movies_details_response.g.dart';
 abstract class MoviesDetailsResponse with _$MoviesDetailsResponse {
   @JsonSerializable(includeIfNull: false)
   const factory MoviesDetailsResponse({
-    required String title,
-    required String overview,
+    String? title,
+    String? overview,
     @JsonKey(name: 'poster_path') String? posterPath,
     @JsonKey(name: 'vote_average') double? voteAverage,
     @JsonKey(name: 'release_date') String? releaseDate,

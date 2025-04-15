@@ -64,7 +64,7 @@ class DetailsScreen extends ConsumerWidget {
                               ],
                             ),
                             Text(
-                              response.title,
+                              response.title ?? '',
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                                     fontSize: 30,
@@ -74,7 +74,7 @@ class DetailsScreen extends ConsumerWidget {
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
-                              response.overview,
+                              response.overview ?? '',
                               style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 23),
                             ),
                           ],

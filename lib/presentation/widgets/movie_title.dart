@@ -51,7 +51,7 @@ class MovieTile extends StatelessWidget {
                 SizedBox(
                   width: 165.0,
                   child: Text(
-                    movieItem.title,
+                    movieItem.title ?? '',
                     style: Theme.of(context).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.bold),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -67,7 +67,7 @@ class MovieTile extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   Text(
-                    movieItem.overview,
+                    movieItem.overview ?? '',
                     maxLines: 3,
                     style: Theme.of(context).textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,

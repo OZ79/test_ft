@@ -15,9 +15,9 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$MovieItem {
-  int get id;
-  String get title;
-  String get overview;
+  int? get id;
+  String? get title;
+  String? get overview;
   @JsonKey(name: 'poster_path')
   String? get posterPath;
   @JsonKey(name: 'vote_average')
@@ -69,9 +69,9 @@ abstract mixin class $MovieItemCopyWith<$Res> {
       _$MovieItemCopyWithImpl;
   @useResult
   $Res call(
-      {int id,
-      String title,
-      String overview,
+      {int? id,
+      String? title,
+      String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'vote_average') double? voteAverage,
       @JsonKey(name: 'release_date') String? releaseDate});
@@ -89,26 +89,26 @@ class _$MovieItemCopyWithImpl<$Res> implements $MovieItemCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? overview = null,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? overview = freezed,
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
     Object? releaseDate = freezed,
   }) {
     return _then(_self.copyWith(
-      id: null == id
+      id: freezed == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      title: null == title
+              as int?,
+      title: freezed == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      overview: null == overview
+              as String?,
+      overview: freezed == overview
           ? _self.overview
           : overview // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
@@ -130,9 +130,9 @@ class _$MovieItemCopyWithImpl<$Res> implements $MovieItemCopyWith<$Res> {
 @JsonSerializable(includeIfNull: false)
 class _MovieItem implements MovieItem {
   const _MovieItem(
-      {required this.id,
-      required this.title,
-      required this.overview,
+      {this.id,
+      this.title,
+      this.overview,
       @JsonKey(name: 'poster_path') this.posterPath,
       @JsonKey(name: 'vote_average') this.voteAverage,
       @JsonKey(name: 'release_date') this.releaseDate});
@@ -140,11 +140,11 @@ class _MovieItem implements MovieItem {
       _$MovieItemFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
-  final String title;
+  final String? title;
   @override
-  final String overview;
+  final String? overview;
   @override
   @JsonKey(name: 'poster_path')
   final String? posterPath;
@@ -207,9 +207,9 @@ abstract mixin class _$MovieItemCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      String title,
-      String overview,
+      {int? id,
+      String? title,
+      String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'vote_average') double? voteAverage,
       @JsonKey(name: 'release_date') String? releaseDate});
@@ -227,26 +227,26 @@ class __$MovieItemCopyWithImpl<$Res> implements _$MovieItemCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? id = null,
-    Object? title = null,
-    Object? overview = null,
+    Object? id = freezed,
+    Object? title = freezed,
+    Object? overview = freezed,
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
     Object? releaseDate = freezed,
   }) {
     return _then(_MovieItem(
-      id: null == id
+      id: freezed == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      title: null == title
+              as int?,
+      title: freezed == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      overview: null == overview
+              as String?,
+      overview: freezed == overview
           ? _self.overview
           : overview // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable

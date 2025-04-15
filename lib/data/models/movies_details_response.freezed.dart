@@ -15,8 +15,8 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$MoviesDetailsResponse {
-  String get title;
-  String get overview;
+  String? get title;
+  String? get overview;
   @JsonKey(name: 'poster_path')
   String? get posterPath;
   @JsonKey(name: 'vote_average')
@@ -69,8 +69,8 @@ abstract mixin class $MoviesDetailsResponseCopyWith<$Res> {
       _$MoviesDetailsResponseCopyWithImpl;
   @useResult
   $Res call(
-      {String title,
-      String overview,
+      {String? title,
+      String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'vote_average') double? voteAverage,
       @JsonKey(name: 'release_date') String? releaseDate});
@@ -89,21 +89,21 @@ class _$MoviesDetailsResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? overview = null,
+    Object? title = freezed,
+    Object? overview = freezed,
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
     Object? releaseDate = freezed,
   }) {
     return _then(_self.copyWith(
-      title: null == title
+      title: freezed == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      overview: null == overview
+              as String?,
+      overview: freezed == overview
           ? _self.overview
           : overview // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
@@ -125,8 +125,8 @@ class _$MoviesDetailsResponseCopyWithImpl<$Res>
 @JsonSerializable(includeIfNull: false)
 class _MoviesDetailsResponse implements MoviesDetailsResponse {
   const _MoviesDetailsResponse(
-      {required this.title,
-      required this.overview,
+      {this.title,
+      this.overview,
       @JsonKey(name: 'poster_path') this.posterPath,
       @JsonKey(name: 'vote_average') this.voteAverage,
       @JsonKey(name: 'release_date') this.releaseDate});
@@ -134,9 +134,9 @@ class _MoviesDetailsResponse implements MoviesDetailsResponse {
       _$MoviesDetailsResponseFromJson(json);
 
   @override
-  final String title;
+  final String? title;
   @override
-  final String overview;
+  final String? overview;
   @override
   @JsonKey(name: 'poster_path')
   final String? posterPath;
@@ -199,8 +199,8 @@ abstract mixin class _$MoviesDetailsResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String title,
-      String overview,
+      {String? title,
+      String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'vote_average') double? voteAverage,
       @JsonKey(name: 'release_date') String? releaseDate});
@@ -219,21 +219,21 @@ class __$MoviesDetailsResponseCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? title = null,
-    Object? overview = null,
+    Object? title = freezed,
+    Object? overview = freezed,
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
     Object? releaseDate = freezed,
   }) {
     return _then(_MoviesDetailsResponse(
-      title: null == title
+      title: freezed == title
           ? _self.title
           : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      overview: null == overview
+              as String?,
+      overview: freezed == overview
           ? _self.overview
           : overview // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       posterPath: freezed == posterPath
           ? _self.posterPath
           : posterPath // ignore: cast_nullable_to_non_nullable
