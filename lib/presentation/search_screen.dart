@@ -32,10 +32,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorFilter = ColorFilter.mode(
-      Utils.isLightMode(context) ? Colors.black : Colors.white,
-      BlendMode.srcIn,
-    );
     return Scaffold(
         appBar: AppBar(title: const Text('Search Movie')),
         body: SafeArea(
@@ -49,7 +45,10 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       Assets.icons.searchIcon,
                       width: 28,
                       height: 28,
-                      colorFilter: colorFilter,
+                      colorFilter: ColorFilter.mode(
+                        Utils.isLightMode(context) ? Colors.black : Colors.white,
+                        BlendMode.srcIn,
+                      ),
                     ),
                     const SizedBox(width: 10.0),
                     Expanded(
