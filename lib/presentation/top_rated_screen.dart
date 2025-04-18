@@ -8,7 +8,7 @@ import 'package:test_ft/generated/assets/assets.gen.dart';
 import 'package:test_ft/presentation/app_router.dart';
 import 'package:test_ft/presentation/theme/theme_mode_provider.dart';
 import 'package:test_ft/presentation/widgets/movie_title.dart';
-import 'package:test_ft/utils/utils.dart';
+import 'package:test_ft/utils/extensions.dart';
 
 const kPageSize = 20;
 
@@ -18,7 +18,7 @@ class TopRatedScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorFilter = ColorFilter.mode(
-      Utils.isLightMode(context) ? Colors.black : Colors.white,
+      context.isLightMode ? Colors.black : Colors.white,
       BlendMode.srcIn,
     );
     return Scaffold(

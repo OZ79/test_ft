@@ -7,7 +7,7 @@ import 'package:test_ft/generated/assets/assets.gen.dart';
 import 'package:test_ft/presentation/top_rated_screen.dart';
 import 'package:test_ft/presentation/widgets/movie_title.dart';
 import 'package:test_ft/utils/debouncer.dart';
-import 'package:test_ft/utils/utils.dart';
+import 'package:test_ft/utils/extensions.dart';
 
 const kLikeDebouncerMilliseconds = 400;
 
@@ -46,7 +46,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       width: 28,
                       height: 28,
                       colorFilter: ColorFilter.mode(
-                        Utils.isLightMode(context) ? Colors.black : Colors.white,
+                        context.isLightMode ? Colors.black : Colors.white,
                         BlendMode.srcIn,
                       ),
                     ),
@@ -99,8 +99,6 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           ref.watch(fetchtSearchMoviesProvider(page, _query!));
                       return responseAsync.when(
                         error: (error, stack) {
-                          print(error);
-                          print(stack);
                           return Text(error.toString());
                         },
                         loading: () => const Center(child: CircularProgressIndicator()),
