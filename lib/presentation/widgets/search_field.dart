@@ -41,25 +41,23 @@ class _SearchFieldState extends ConsumerState<SearchField> {
         ),
         const SizedBox(width: 10.0),
         Expanded(
-          child: Center(
-            child: TextField(
-              controller: _controller,
-              style: Theme.of(context).textTheme.titleLarge!,
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                contentPadding: EdgeInsets.zero,
-                isDense: true,
-                hintText: 'Search movies',
-                hintStyle: Theme.of(context).textTheme.titleLarge!,
-              ),
-              onChanged: (text) {
-                if (text.length >= 3) {
-                  _debouncer.run(() {
-                    ref.read(moviesSearchQueryNotifierProvider.notifier).setQuery(text);
-                  });
-                }
-              },
+          child: TextField(
+            controller: _controller,
+            style: Theme.of(context).textTheme.titleLarge!,
+            decoration: InputDecoration(
+              border: const OutlineInputBorder(),
+              contentPadding: EdgeInsets.zero,
+              isDense: true,
+              hintText: 'Search movies',
+              hintStyle: Theme.of(context).textTheme.titleLarge!,
             ),
+            onChanged: (text) {
+              if (text.length >= 3) {
+                _debouncer.run(() {
+                  ref.read(moviesSearchQueryNotifierProvider.notifier).setQuery(text);
+                });
+              }
+            },
           ),
         ),
       ],

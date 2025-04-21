@@ -20,11 +20,9 @@ class SearchScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
             child: Column(
+              spacing: 10.0,
               children: [
                 const SearchField(),
-                const SizedBox(
-                  height: 10,
-                ),
                 Expanded(
                   child: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {
                     final query = ref.watch(moviesSearchQueryNotifierProvider);
